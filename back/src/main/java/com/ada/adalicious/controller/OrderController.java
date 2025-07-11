@@ -2,6 +2,8 @@ package com.ada.adalicious.controller;
 
 import com.ada.adalicious.model.Order;
 import com.ada.adalicious.service.OrderService;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,6 +36,14 @@ public class OrderController {
     @PutMapping("/{id}")
     public Order update(@PathVariable Long id, @RequestBody Order order) {
         return orderService.update(id, order);
+    }
+
+    @PutMapping("/orders/{id}/status")
+    public ResponseEntity<Order> updateOrderStatus(@PathVariable Long id, @RequestBody Status status) {
+        Order order = orderService.getOrderById(id);
+        order.setStatus(status);
+        orderService.save(order);
+        return ResponseEntity.ok(order);
     }
 
     @DeleteMapping("/{id}")
