@@ -40,11 +40,24 @@ export default function MenuPage() {
     console.log("meals:", meals);
 
     return (
-        <div className={`${manrope.className} font-sans min-h-screen p-8 pb-20`}>
-            <h1 className="text-2xl font-bold mb-6 text-center">Bonjour {userName} 👋</h1>
-            <main className="flex flex-col gap-8 items-center">
-                <CardMeal meals={meals} userName={userName} />
-            </main>
+    <div className="min-h-screen bg-gray-100 p-4 sm:p-8 flex justify-center items-start">
+      {/* Grande carte sur desktop uniquement */}
+      <div className="hidden sm:flex flex-col bg-white border border-black rounded-3xl shadow-lg w-full max-w-2xl h-[90vh] p-8">
+        <h1 className="text-3xl font-bold text-center mb-2">Adalicious 🥦</h1>
+        <h2 className="text-xl text-center mb-4">Bonjour {userName} 👋</h2>
+
+        {/* Zone scrollable pour les cartes */}
+        <div className="overflow-y-auto flex-1 pr-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent hover:scrollbar-thumb-gray-400">
+          <CardMeal meals={meals} userName={userName} />
         </div>
+      </div>
+
+      {/* Affichage mobile (pas de carte) */}
+      <div className="sm:hidden w-full">
+        <h1 className="text-2xl font-bold text-center mb-2">Adalicious</h1>
+        <h2 className="text-lg text-center mb-4">Bonjour {userName} 👋</h2>
+        <CardMeal meals={meals} userName={userName} />
+      </div>
+    </div>
   );
 }

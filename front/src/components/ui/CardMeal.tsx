@@ -38,39 +38,30 @@ export default function CardMeal({ meals, userName }: CardMealProps) {
   }
 
   return (
-    <div>
-      {success && (
-        <div className="bg-green-100 text-green-800 text-sm p-2 mb-4 rounded">
-          {success}
-        </div>
-      )}
-
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+    <div className="flex flex-col gap-6">
       {meals.map((meal) => (
-        <Card key={meal.id} className="w-60 bg-white">
-          <CardHeader className="p-0 h-30">
-            <p>{meal.image}</p>
-          </CardHeader>
+        <div key={meal.id} 
+        className="bg-white border border-black rounded-2xl shadow-md p-4 w-full flex flex-col justify-between hover:shadow-lg transition">
+          <div className="flex items-start gap-4">
+            <div className="text-4xl bg-gray-100 border border-black rounded-lg p-4 w-20 h-20 flex items-center justify-center">
+              {meal.image}
+            </div>
+            <div className="flex flex-col flex-1">
+              <div className="text-xl font-bold">{meal.name}</div>
+              <div className="text-gray-600 text-sm mt-1">{meal.description}</div>
+            </div>
+          </div>
 
-          <CardTitle className="flex justify-between py-4 px-3">
-            <p>{meal.name}</p>
-          </CardTitle>
-
-          <CardDescription className="px-3 pb-4 text-sm text-gray-600">
-            {meal.description}
-          </CardDescription>
-
-          <CardAction className="flex justify-center pb-4">
-              <button
-                className="cursor-pointer bg-blue-300 text-gray-900 hover:bg-blue-400 px-4 py-2 rounded-md"
-                onClick={() => handleOrder(meal.id, userName)}
-              >
-                Commander
-              </button>
-            </CardAction>
-        </Card>
+          <div className="flex justify-end mt-4">
+            <button
+              onClick={() => handleOrder(meal.id, userName)}
+              className="bg-blue-500 text-white px-4 py-2 border border-black rounded-md hover:bg-blue-600 transition"
+            >
+              Commander
+            </button>
+          </div>
+        </div>
       ))}
-      </div>
     </div>
   );
 }
