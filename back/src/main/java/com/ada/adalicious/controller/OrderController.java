@@ -38,13 +38,15 @@ public class OrderController {
         return orderService.update(id, order);
     }
 
-    @PutMapping("/orders/{id}/status")
-    public ResponseEntity<Order> updateOrderStatus(@PathVariable Long id, @RequestBody Status status) {
-        Order order = orderService.getOrderById(id);
-        order.setStatus(status);
-        orderService.save(order);
-        return ResponseEntity.ok(order);
+    @PatchMapping("/{id}")
+    public Order updateStatus(@PathVariable Long id, @RequestBody Order partialOrder) {
+        if (partialOrder.getStatus() == null || partialOrder.getStatus().getId() == null) {
+            throw new IllegalArgumentException("Missing status.id in request body");
+        }
+
+        return orderService.updateStatus(id, partialOrder.getStatus().getId());
     }
+    
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {

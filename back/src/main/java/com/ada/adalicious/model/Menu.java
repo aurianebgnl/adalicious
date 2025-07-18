@@ -13,7 +13,7 @@ public class Menu {
     private Long id;
 
     @Column(nullable = false)
-    private String plate;
+    private String name;
 
     private String description;
 
